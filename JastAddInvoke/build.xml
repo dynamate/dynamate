@@ -1,0 +1,65 @@
+<!-- Targets for working from terminal window:
+       build (default) - generates java files and compiles them
+       test            - runs junit test cases
+       clean           - removes all generated files and class files
+     Targets for working from Eclipse:
+       gen             - generates java files
+       genClean        - removes all generated files and their class files
+ -->
+
+<project name="Compiler" default="build" basedir=".">
+
+  <!-- "package" is the directory where generated files will be stored -->
+  <property name="package" value="AST"/>
+
+  <!-- "tools" is the directory where generators and libraries are located. -->
+  <property name="tools" value="tools"/>
+    
+  <!-- "jastadd" is an ant task class in jastadd2.jar -->
+  <taskdef classname="jastadd.JastAddTask" name="jastadd" classpath="${tools}/jastadd2.jar:/home/kamil/workspace/master/InvokeDynamic/classes" />
+
+  <!-- TARGET build: compile sources -->
+  <target name="build" depends="gen">
+    <!-- compile all java files in srcdir and recursively in subdirectories -->
+    <javac debug="true" nowarn="true" srcdir="." classpath=".:${tools}/junit.jar:/home/kamil/workspace/master/InvokeDynamic/bin:/home/kamil/workspace/master/InvokeDynamic/classes" />
+  </target>
+
+  <!-- TARGET gen: generate source files -->
+  <target name="gen">
+    <!-- create a directory for the generated files -->
+    <mkdir dir="${basedir}/${package}"/>
+    <!-- run jastadd to generate AST files -->
+    <jastadd package="${package}" outdir="${basedir}" rewrite="true">
+      <fileset dir=".">
+        <include name="**/spec/*.ast"/>
+        <include name="**/spec/*.jrag"/>
+        <include name="**/spec/*.jadd"/>
+      </fileset>
+    </jastadd>
+  </target>
+
+  <!-- Remove generated source files and .class files -->
+  <target name="clean" depends="cleanGen">
+    <!-- Delete all classfiles in dir and recursively in subdirectories -->
+    <delete>
+      <fileset dir="." includes="**/*.class"/>
+    	<fileset dir="bin" includes="**/*"/>
+    </delete>
+  </target>
+
+  <!-- Remove generated source files -->
+  <target name="cleanGen">
+    <delete dir="${package}"/>
+  </target>
+
+  <!-- Test the generated compiler -->
+  <target name="test" depends="build">
+    <!-- Run all tests in dir by using the TestAll java program -->
+    <java 
+      classname="testframework.TestAll"
+      classpath=".:${tools}/junit.jar" 
+      fork="true" 
+      dir="."
+    />
+  </target>
+</project>

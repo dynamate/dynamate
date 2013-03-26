@@ -1,0 +1,27 @@
+// Solutions to various exercises in the paper
+
+import java.util.*;
+aspect Exercises {
+ 	syn Integer G0.t() = 3;
+	syn Integer H0.u() = 5;
+	
+	syn E0 C0.r() = getE0().r();
+	syn F0 D0.t() = getF0().s();
+
+	syn Integer E0.v() = i().getG0().t();
+	syn E0 E0.r() = this;
+	inh F0 E0.i();
+	
+	eq B0.getC0().i() {
+		return getD0().t();
+	}
+	
+	syn Integer F0.m() = getH0().u() + k().v();
+	syn F0 F0.s() = this;
+	inh E0 F0.k();
+
+	eq B0.getD0().k() {
+		return getC0().r();
+	}
+	
+}

@@ -1,0 +1,77 @@
+package app;
+
+import java.util.concurrent.TimeUnit;
+
+
+public class Runner {
+
+	public static void main(String[] args) {
+		long t0 = System.nanoTime();
+		long t1;
+		double cnt = 0;
+		
+		
+		Layer Address1 = new Address1();
+		Layer Address2 = new Address2();
+		Layer Address3 = new Address3();
+		Layer Address4 = new Address4();
+		Layer Address5 = new Address5();
+		
+		long t = System.nanoTime();
+		with(Address1) {
+			do {
+				App.main(null);
+				cnt++;
+				t1 = System.nanoTime();
+			} while (t1 < t + 2000000000l);
+		}
+		
+		t = System.nanoTime();
+		with(Address1, Address2) {
+			do {
+				App.main(null);
+				cnt++;
+				t1 = System.nanoTime();
+			} while (t1 < t + 2000000000l);
+		}
+		
+		t = System.nanoTime();
+		with(Address1, Address2, Address3) {
+			do {
+				App.main(null);
+				cnt++;
+				t1 = System.nanoTime();
+			} while (t1 < t + 2000000000l);
+		}
+		
+		t = System.nanoTime();
+		with(Address1, Address2, Address3, Address4) {
+			do {
+				App.main(null);
+				cnt++;
+				t1 = System.nanoTime();
+			} while (t1 < t + 2000000000l);
+		}
+		
+		t = System.nanoTime();
+		with(Address1, Address2, Address3, Address4, Address5) {
+			do {
+				App.main(null);
+				cnt++;
+				t1 = System.nanoTime();
+			} while (t1 < t + 2000000000l);
+		}
+		
+		long t2 = System.nanoTime();
+		System.out.println("Throughput:" + cnt/TimeUnit.NANOSECONDS.toMillis(t2-t0));
+	}
+
+//	private static void printTimingResults(long totalTime) {
+//		System.out.println("Finished in " + TimeUnit.NANOSECONDS.toMillis(totalTime) + " ms.");
+//		
+//		for (Entry<String, Long> entry : TimingUtils.getInstance().getTimers().entrySet()) {
+//			long t = entry.getValue();
+//			System.out.println("[Timer] " + entry.getKey() + ": " + TimeUnit.NANOSECONDS.toMillis(t) + " ms, " + (long) (((double) entry.getValue())/totalTime*100) + "%.");
+//		}
+//	}
+}

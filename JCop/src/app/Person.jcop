@@ -1,0 +1,62 @@
+package app;
+
+public class Person {
+	private String name;
+	
+	private String address;
+	
+	public Person(String name, String address) {
+		this.name = name;
+		this.address = address;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	public String toString() {
+		return getName();
+	}
+	
+	layer Address1 {
+		public String app.Person.toString() {
+			return proceed() + ", " + getAddress();
+		}
+	}
+	
+	layer Address2 {
+		public String app.Person.toString() {
+			return proceed() + ", " + getAddress();
+		}
+	}
+	
+	layer Address3 {
+		public String app.Person.toString() {
+			return proceed() + ", " + getAddress();
+		}
+	}
+	
+	layer Address4 {
+		public String app.Person.toString() {
+			return proceed() + ", " + getAddress();
+		}
+	}
+	
+	layer Address5 {
+		public String app.Person.toString() {
+			return proceed() + ", " + getAddress();
+		}
+	}
+}
