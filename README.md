@@ -1,6 +1,21 @@
 Dynamate Framework
 
 ============================================================
+COMPILING
+============================================================
+You can compile the code manually with javac or using the supplied Eclipse project files.
+1. Compile the Dynamate framework using the lib and classes directories as classpath dependencies
+2. Compile the individual integration code for each client using dynamate's bin, lib and classes directories as classpath dependencies
+3. Compile the BenchmarkSuite using the lib directory as a classpath dependency
+============================================================
+RUNNING BENCHMARKS
+============================================================
+The supplied BenchmarkSuite project executes some benchmarks for the client integration using the original implementation and the dynamate modified implementation. The BenchmarkSuite will start new java processes for each benchmark. The benchmark runners are located in the src/impl directory and can be started by invoking the desired *Runner class.
+The vm argument WORKSPACE must be passed (using the -D switch) pointing to the root dynamate directory containing the framework and the individual integrations. The argument NUMBER_OF_RUNS can be passed to control the total number of invokations of each benchmark (will be set to 1 if not passed).
+
+Exemplary Invokation of the JRuby benchmarks:
+java -DWORKSPACE=/home/user/dynamate -DNUMBER_OF_RUNS=3 -cp bin impl.jruby.JRubyRunner
+============================================================
 LICENSE
 ============================================================
 Copyright (c) 2013, Kamil Erhard
